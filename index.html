@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Surprise for You 🍵</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="bgCanvas" aria-hidden="true"></canvas>
+
+  <main class="card" id="card">
+
+    <!-- CHANGED: page indicator now has 5 steps (added "Intentions") -->
+    <nav class="steps" id="steps" aria-label="Progress">
+      <span class="step active" data-step="1"><i></i><em>Unlock</em></span>
+      <span class="step" data-step="2"><i></i><em>Moments</em></span>
+      <span class="step" data-step="3"><i></i><em>Jacket</em></span>
+      <span class="step" data-step="4"><i></i><em>Intentions</em></span>
+      <span class="step" data-step="5"><i></i><em>Question</em></span>
+    </nav>
+
+    <!-- SECTION 1: AUTHENTICATION / QUIZ -->
+    <section id="quiz">
+      <p class="chapter">the little lock</p>
+
+      <div class="tag-wrap">
+        <span class="tag">AUTHENTICATION REQUIRED 🍵</span>
+      </div>
+
+      <h1>Hala, wait sa!</h1>
+
+      <p class="intro">
+        Authentication before mo proceed,
+        tan-awon nato'g kaila bajud ka nako. ♡
+        <br>
+        Answer these 3 questions to unlock
+        your little surprise bb!
+      </p>
+
+      <div class="progress-wrap">
+        <div class="progress" id="progress"></div>
+      </div>
+
+      <div class="question-number" id="questionNumber">
+        QUESTION 01 OF 03
+      </div>
+
+      <h2 id="questionText"></h2>
+
+      <!-- PHONE PIN SCREEN -->
+      <div id="pinScreen" class="pin-screen">
+        <div class="lock-date" id="lockDate">MONDAY, JANUARY 01</div>
+        <div class="lock-time" id="lockTime">10:08</div>
+
+        <p class="lock-prompt">Enter your passcode to unlock ♡</p>
+
+        <div class="pin-dots" id="pinDots" aria-label="Four digit passcode">
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+          <span class="pin-dot"></span>
+        </div>
+
+        <div class="keypad" id="keypad">
+          <button type="button" class="key" data-key="1">1</button>
+          <button type="button" class="key" data-key="2">2</button>
+          <button type="button" class="key" data-key="3">3</button>
+
+          <button type="button" class="key" data-key="4">4</button>
+          <button type="button" class="key" data-key="5">5</button>
+          <button type="button" class="key" data-key="6">6</button>
+
+          <button type="button" class="key" data-key="7">7</button>
+          <button type="button" class="key" data-key="8">8</button>
+          <button type="button" class="key" data-key="9">9</button>
+
+          <button type="button" class="key key-special" data-key="clear">⌫</button>
+          <button type="button" class="key" data-key="0">0</button>
+          <button type="button" class="key key-special" data-key="enter">✓</button>
+        </div>
+
+        <p class="pin-hint">Tap the numbers to enter the PIN</p>
+      </div>
+
+      <!-- MULTIPLE CHOICE QUESTIONS -->
+      <div class="choices" id="choices"></div>
+
+      <button class="action" id="nextButton" type="button" disabled>
+        LOCK IN ANSWER ♡
+      </button>
+
+      <p class="message" id="message" aria-live="polite"></p>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
+    <!-- WELCOME SCREEN -->
+    <section id="welcome" class="welcome hidden">
+      <p class="chapter">the door is open...</p>
+
+      <div class="emoji">🍵💚✨</div>
+
+      <span class="tag">ACCESS GRANTED</span>
+
+      <h2>YAYYY! Taghapan jud!</h2>
+
+      <p class="welcome-text">
+        Tsa, You really know me jud diay. HAHAHA!
+        <br>
+        Welcome to my little surprise.
+        I have something to tell you bebbb
+      </p>
+
+      <button class="action" id="surpriseButton" type="button">
+        OPEN YOUR SURPRISE ♡
+      </button>
+
+      <p class="tiny">to be continued...</p>
+    </section>
+
+    <!-- SECTION 2: SCRAPBOOK -->
+    <section id="scrapbook" class="scrapbook hidden">
+      <p class="chapter">pages we kept</p>
+
+      <div class="scrapbook-top">
+        <span class="tag">A LITTLE MEMORY BOOK FOR MY PRETTYLICIOUS BB ♡</span>
+        <span class="page-count">PAGE 01 · STORYTIME</span>
+      </div>
+
+      <h2 class="scrapbook-title">litol momints...</h2>
+
+      <p class="scrapbook-intro">
+        some memories are worth keeping.
+      </p>
+
+      <div class="scrapbook-page">
+
+        <div class="tape tape-one"></div>
+        <div class="tape tape-two"></div>
+
+        <div class="scrapbook-grid">
+
+          <!-- MEMORY 1 -->
+          <article class="memory-card tilt-left" role="button" tabindex="0"
+                   data-note="our first selfie together. simple ra kaayo nga moment, but it means a lot to me. i'm really thankful nga naa tay picture nga ing-ani, kay it reminds me of one of the little moments nga akong e treasure. ♡">
+            <img class="memory-photo" src="media/beginning.jpg" alt="Our memory">
+            <span class="photo-caption">the beginning ✿</span>
+            <span class="tap-hint">tap to read</span>
+          </article>
+
+          <!-- MEMORY 2: VIDEO -->
+          <article class="memory-card tilt-right" role="button" tabindex="0"
+                   data-note="and here's our first video together. HAHAHA, maybe simple ra ni nga video, but it means a lot to me kay correct me if wrong but i think this is our first one together. another little memory nga i'm really thankful to have.">
+            <video class="memory-video" controls playsinline preload="metadata"
+                   aria-label="A little memory video">
+              <source src="media/moment.mp4" type="video/mp4">
+              Your browser does not support this video.
+            </video>
+            <span class="photo-caption">a little moment</span>
+            <span class="tap-hint">tap here to read · video plays above</span>
+          </article>
+
+          <!-- MEMORY 3 -->
+          <article class="memory-card tilt-right" role="button" tabindex="0"
+                   data-note="out of all our pictures together beb no, i think this one is my favorite. i honestly cant explain why, but there's just something about this photo nga lahi ra jud ang feeling whenever i look at it. maybe it's the moment, maybe it's you, or maybe it's just the way we look together. but either way, this one's special to me. ">
+            <img class="memory-photo" src="media/keep.jpg" alt="Our memory">
+            <span class="photo-caption">one to keep</span>
+            <span class="tap-hint">tap to read</span>
+          </article>
+
+          <!-- MEMORY 4 -->
+          <article class="memory-card tilt-left" role="button" tabindex="0"
+                   data-note="HAHAHA, this picture definitely has a different kind of energy. let's just say, i really enjoyed being close to you that day. some memories are just too good not to keep.">
+            <img class="memory-photo" src="media/continuation.jpg" alt="Our memory">
+            <span class="photo-caption">to be continued...</span>
+            <span class="tap-hint">tap to read</span>
+          </article>
+
+        </div>
+
+        <div class="scrapbook-sticker sticker-heart">♡</div>
+        <div class="scrapbook-sticker sticker-flower">✿</div>
+        <div class="scrapbook-sticker sticker-leaf">🍃</div>
+        <div class="scrapbook-sticker sticker-star">✦</div>
+
+        <div class="scrapbook-note">little things, lovely memories</div>
+      </div>
+
+      <p class="memory-message" id="memoryMessage" aria-live="polite">
+        Tap a photo to open a little note.
+      </p>
+
+      <button class="action" id="nextStoryButton" type="button">
+        TURN THE PAGE ♡
+      </button>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
+    <!-- SECTION 3: THE JACKET MEMORY -->
+    <section id="jacket" class="jacket hidden">
+      <p class="chapter">something you gave me</p>
+
+      <span class="tag">THE JACKET MEMORY ♡</span>
+
+      <h2 class="scrapbook-title">The Jacket Memory</h2>
+
+      <div class="jacket-board">
+        <div class="tape tape-one"></div>
+
+        <!--
+          PHOTO: save your picture as media/jacket.jpg
+          (or change the src below to match your file name).
+          Until the file exists, a placeholder is shown.
+        -->
+        <!-- CHANGED: only the photo is shown now (caption and hint removed) -->
+        <button type="button" class="polaroid" id="jacketPolaroid"
+                aria-label="Open the jacket photo">
+          <div class="polaroid-photo" id="jacketFrame">
+            <img id="jacketPhoto" src="media/jacket.jpg" alt="Me wearing the jacket">
+            <div class="jacket-placeholder">
+              <span>🧥</span>
+              <small>[ PLACEHOLDER · ADD YOUR PHOTO ]</small>
+              <small>save it as media/jacket.jpg</small>
+            </div>
+          </div>
+        </button>
+
+        <!--
+          CHANGED: the jacket message is no longer shown in the section.
+          It stays here (hidden) and appears in the popup when she taps the photo.
+          Edit your message inside this <p>.
+        -->
+        <div class="hidden" aria-hidden="true">
+          <p id="jacketMessage">i still can't believe nga naa pa diay someone like you. thank you so much sa birthday gift, especially sa jacket. i'm genuinely grateful, not just for the gift but also for the thought and effort behind it beb. you deserve to be appreciated just as much, not treated the way others made you feel before. i hope I can show you how much you are valued and treasured. i want to keep making memories with you for as long as life allows.</p>
+        </div>
+
+        <div class="scrapbook-sticker sticker-heart">♡</div>
+        <div class="scrapbook-sticker sticker-flower">✿</div>
+        <div class="scrapbook-sticker sticker-star">✦</div>
+      </div>
+
+      <!-- CHANGED: button text (it now leads to My Intentions) -->
+      <button class="action" id="jacketNextButton" type="button">
+        CONTINUE ♡
+      </button>
+      <button class="ghost" id="jacketBackButton" type="button">
+        ← back to our moments
+      </button>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
+    <!-- NEW — SECTION 4: MY INTENTIONS -->
+    <section id="intentions" class="intentions hidden">
+      <p class="chapter">my intentions</p>
+
+      <span class="tag">Ms. ♡</span>
+
+      <h2 class="scrapbook-title">Bernila Saligan Losaynon</h2>
+
+      <div class="intent-panel">
+
+        <!--
+          PHOTO OF HER: save the picture as media/intentions.jpg
+          (or change the src below to match your file name).
+          Until the file exists, a placeholder is shown.
+        -->
+        <div class="intent-photo">
+          <div class="intent-photo-inner" id="intentFrame">
+            <img id="intentPhoto" src="media/bernila.jpg" alt="A photo of you">
+            <div class="intent-placeholder">
+              <span>📷</span>
+              <small>[ PLACEHOLDER · ADD HER PHOTO ]</small>
+              <small>save it as media/intentions.jpg</small>
+            </div>
+          </div>
+        </div>
+
+        <p class="intent-divider" aria-hidden="true">✦ ♡ ✦</p>
+
+        <!-- MESSAGE: replace the text inside this <p> with your own words about your intentions -->
+        <p class="intent-message" id="intentMessage">i want you to be my last beb. dili na ko ganahan mangita or makaila pa og lain, because i want to focus on you and what we can build together. i don't know what the future holds, but i know nga ikaw akong pilion, every single day/hour/minute/seconds. i want to grow with you, make more memories with you, and treasure you for as long as i can beb. ♡
+</p>
+
+        <div class="scrapbook-sticker sticker-heart">♡</div>
+        <div class="scrapbook-sticker sticker-flower">✿</div>
+        <div class="scrapbook-sticker sticker-star">✦</div>
+      </div>
+
+      <button class="action" id="intentNextButton" type="button">
+        TAKE A DEEP BREATH BEB BEFORE CLICKING ME ♡
+      </button>
+      <button class="ghost" id="intentBackButton" type="button">
+        ← back to the jacket
+      </button>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
+    <!-- SECTION 5: THE FINAL QUESTION -->
+    <section id="finale" class="finale hidden">
+      <!-- CHANGED: chapter number (four → five) -->
+      <p class="chapter">the question ive been preparing for</p>
+
+      <span class="tag">SO ? ONE LAST THING ♡</span>
+
+      <div class="final-glow" aria-hidden="true">💚</div>
+
+      <h2 class="final-question" id="finalQuestion">Bernila Saligan Losaynon 
+        Will you be my girlfriend? ♡</h2>
+
+      <p class="final-sub" id="finalSub">Take your time... but the NO button is not an option na opps 🙈</p>
+
+      <div class="answer-stage" id="answerStage">
+        <button type="button" class="btn-yes" id="yesButton">YES</button>
+        <button type="button" class="btn-no" id="noButton">NO</button>
+      </div>
+
+      <p class="message dodge-note" id="dodgeNote" aria-live="polite"></p>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
+  </main>
+
+  <!--
+    NEW: BACKGROUND MUSIC
+    >>> EDIT THE src BELOW to your own music file name. <<<
+    Put the file inside your "media" folder, e.g. media/my-song.mp3
+    then change YOUR-MUSIC-FILE.mp3 to the same name.
+  -->
+  <audio id="bgMusic" loop preload="metadata" src="media/Bruno Mars - Risk It All.mp3"></audio>
+
+  <button id="musicToggle" class="music-toggle" type="button"
+          aria-pressed="false" aria-label="Play background music" title="Play music">
+    <span class="music-icon" aria-hidden="true">♪</span>
+  </button>
+
+  <!-- EXPANDED MEMORY MODAL (used by the scrapbook and the jacket photo) -->
+  <div id="memoryModal" class="memory-modal hidden" role="dialog" aria-modal="true" aria-label="Memory">
+    <div class="memory-modal-content">
+
+      <button id="closeMemory" class="close-memory" type="button" aria-label="Close">&times;</button>
+
+      <div id="expandedMedia" class="expanded-media"></div>
+
+      <div class="expanded-message">
+        <span class="tag">A LITTLE MEMORY ♡</span>
+        <h2 id="expandedTitle">A special memory</h2>
+        <p id="expandedText"></p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- YES POPUP -->
+  <div id="yesModal" class="yes-modal hidden" role="dialog" aria-modal="true" aria-label="She said yes">
+    <div id="confettiLayer" class="confetti-layer" aria-hidden="true"></div>
+    <div class="yes-content">
+      <button id="closeYes" class="close-memory" type="button" aria-label="Close">&times;</button>
+      <div class="yes-heart" aria-hidden="true">💚</div>
+      <h2 class="yes-title">YES! ♡</h2>
+      <p class="yes-sub">You just made the man beside you the happiest beb!!! ♡</p>
+      <button class="action" id="yesDone" type="button">CLOSE ♡</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
