@@ -31,6 +31,8 @@ let answerLocked = false;
 
 // GET HTML ELEMENTS
 const card = document.getElementById("card");
+const landing = document.getElementById("landing"); // NEW: the welcome page
+const stepsNav = document.getElementById("steps");  // NEW: page indicator
 const quiz = document.getElementById("quiz");
 const welcome = document.getElementById("welcome");
 const scrapbook = document.getElementById("scrapbook");
@@ -61,9 +63,11 @@ function restartAnimation(element, className) {
 
 /* ---------- SECTION NAVIGATION ---------- */
 
-// CHANGED: added "intentions" (step 4); the final question is now step 5
-const stepOf = { quiz: 1, welcome: 1, scrapbook: 2, jacket: 3, intentions: 4, finale: 5 };
-let currentSection = quiz;
+// CHANGED: added "landing" (the new welcome page, no step highlighted)
+const stepOf = { landing: 0, quiz: 1, welcome: 1, scrapbook: 2, jacket: 3, intentions: 4, finale: 5 };
+
+// CHANGED: the website now starts on the welcome page instead of the quiz
+let currentSection = landing;
 let transitioning = false;
 
 function setStep(number) {
@@ -93,6 +97,10 @@ function goTo(id) {
     currentSection = next;
 
     setStep(stepOf[id]);
+
+    // NEW: the page indicator stays hidden on the welcome page only
+    stepsNav.classList.toggle("steps-hidden", id === "landing");
+
     window.scrollTo({ top: 0, behavior: "smooth" });
 
     if (id === "finale") {
@@ -105,6 +113,13 @@ function goTo(id) {
     }, 650);
   }, 350);
 }
+
+/* ---------- NEW — SECTION 0: WELCOME PAGE ---------- */
+
+// "Let's Begin ♡" fades the welcome page out and the authentication in
+document.getElementById("beginButton").addEventListener("click", () => {
+  goTo("quiz");
+});
 
 /* ---------- SECTION 1: QUIZ ---------- */
 
@@ -420,7 +435,7 @@ document.getElementById("jacketPolaroid").addEventListener("click", () => {
   );
 });
 
-// CHANGED: the jacket section now leads to "intentions" instead of "finale"
+// the jacket section leads to "intentions"
 document.getElementById("jacketNextButton").addEventListener("click", () => {
   goTo("intentions");
 });
@@ -429,7 +444,7 @@ document.getElementById("jacketBackButton").addEventListener("click", () => {
   goTo("scrapbook");
 });
 
-/* ---------- NEW — SECTION 4: MY INTENTIONS ---------- */
+/* ---------- SECTION 4: MY INTENTIONS ---------- */
 
 const intentPhoto = document.getElementById("intentPhoto");
 const intentFrame = document.getElementById("intentFrame");
@@ -708,9 +723,10 @@ function updateLockScreen() {
 updateLockScreen();
 setInterval(updateLockScreen, 30000);
 
-/* ---------- NEW: BACKGROUND MUSIC ---------- */
+/* ---------- BACKGROUND MUSIC ---------- */
 // The music file itself is set in index.html (the <audio id="bgMusic"> tag).
-// Browsers block autoplay, so the music starts after her first tap/click/key press.
+// Browsers block autoplay, so the music starts after her first tap/click/key press
+// (now that is the "Let's Begin" button on the welcome page).
 // If she pauses it with the music button, it stays paused.
 
 const bgMusic = document.getElementById("bgMusic");
@@ -987,6 +1003,63 @@ document.addEventListener("play", (event) => {
       start();
     }
   });
+})();
+
+/* ---------- NEW: FLOATING GLOWING HEART PARTICLES ---------- */
+// Small soft-green / muted-white hearts that drift upward and sway.
+// They are plain elements animated with CSS (smooth and light on phones),
+// and the layer has pointer-events: none so it never blocks a tap or click.
+
+(function startHeartParticles() {
+  const field = document.getElementById("heartField");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!field || reduceMotion) {
+    return;
+  }
+
+  // fewer hearts on phones to keep things light
+  const count = window.innerWidth < 600 ? 10 : 18;
+
+  // soft matcha greens and a muted white
+  const colors = [
+    [155, 179, 146],
+    [201, 216, 193],
+    [246, 240, 220],
+    [125, 161, 116]
+  ];
+
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < count; i++) {
+    const heart = document.createElement("span");
+    const size = 8 + Math.random() * 14;                 // different sizes
+    const duration = 16 + Math.random() * 18;            // different speeds
+    const [r, g, b] = colors[i % colors.length];
+
+    heart.className = "glow-heart";
+    heart.textContent = "♥";
+
+    heart.style.left = `${Math.random() * 100}%`;
+    heart.style.fontSize = `${size.toFixed(1)}px`;
+    heart.style.color = `rgb(${r}, ${g}, ${b})`;
+    heart.style.textShadow =
+      `0 0 ${Math.round(size * 0.6)}px rgba(${r}, ${g}, ${b}, 0.85), ` +
+      `0 0 ${Math.round(size * 1.4)}px rgba(${r}, ${g}, ${b}, 0.45)`;
+
+    // different opacity levels (kept subtle)
+    heart.style.setProperty("--o", (0.22 + Math.random() * 0.33).toFixed(2));
+    heart.style.setProperty("--sway", `${Math.round((Math.random() - 0.5) * 80)}px`);
+    heart.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 60)}px`);
+
+    heart.style.animationDuration = `${duration.toFixed(1)}s`;
+    // negative delay: hearts are already spread across the screen when the page opens
+    heart.style.animationDelay = `-${(Math.random() * duration).toFixed(1)}s`;
+
+    fragment.appendChild(heart);
+  }
+
+  field.appendChild(fragment);
 })();
 
 // START THE WEBSITE
