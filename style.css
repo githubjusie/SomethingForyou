@@ -979,6 +979,139 @@ h2 { margin: 18px 0 12px; font-size: clamp(1.5rem, 5vw, 2rem); }
   .answer-stage { height: 230px; }
 }
 
+/* =====================================================
+   NEW: WELCOME PAGE (shown first)
+   ===================================================== */
+.landing { padding: 14px 0 6px; }
+
+/* each part fades up one after another (heart, title, text, button) */
+.landing > * { animation: intentRise 0.9s ease both; }
+.landing > :nth-child(2) { animation-delay: 0.12s; }
+.landing > :nth-child(3) { animation-delay: 0.24s; }
+.landing > :nth-child(4) { animation-delay: 0.4s; }
+.landing > :nth-child(5) { animation-delay: 0.6s; }
+.landing > :nth-child(6) { animation-delay: 0.8s; }
+
+.landing-heart-wrap { margin: 4px 0 6px; line-height: 1; }
+
+/* small glowing heart above the title */
+.landing-heart {
+  display: inline-block;
+  color: var(--sage-soft);
+  font-size: 2.2rem;
+  line-height: 1;
+  text-shadow:
+    0 0 10px rgba(201, 216, 193, 0.95),
+    0 0 26px rgba(155, 179, 146, 0.75),
+    0 0 46px rgba(85, 120, 79, 0.6);
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+.landing-title {
+  margin: 10px 0 18px;
+  font-size: clamp(2.2rem, 8vw, 3.2rem);
+  text-shadow: 0 0 26px rgba(201, 216, 193, 0.25);
+}
+
+.landing-text {
+  max-width: 470px;
+  margin: 0 auto 30px;
+  color: var(--sage-soft);
+  font-size: 1rem;
+  line-height: 1.95;
+}
+
+.landing-actions { max-width: 320px; margin: 0 auto; }
+
+/* "Let's Begin" button: gentle glowing pulse */
+.begin-btn {
+  font-size: 0.95rem;
+  animation: beginGlow 2.6s ease-in-out infinite;
+}
+
+@keyframes beginGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(214, 180, 106, 0), 0 0 14px rgba(214, 180, 106, 0.25); }
+  50% { box-shadow: 0 0 0 9px rgba(214, 180, 106, 0), 0 0 28px rgba(214, 180, 106, 0.55); }
+}
+
+/* page indicator is hidden on the welcome page, and fades in afterwards */
+.steps { animation: fadeIn 0.6s ease both; }
+.steps.steps-hidden { display: none; }
+
+/* =====================================================
+   NEW: FLOATING GLOWING HEART PARTICLES
+   (created in script.js, pointer-events: none so they never block anything)
+   TIP: change z-index from 2 to 0 if you want them behind the card instead.
+   ===================================================== */
+.heart-field {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.glow-heart {
+  position: absolute;
+  bottom: -40px;
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+  animation: heartFloat linear infinite;
+}
+
+@keyframes heartFloat {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) rotate(-8deg); }
+  12% { opacity: var(--o, 0.4); }
+  50% { transform: translate3d(var(--sway, 30px), -60vh, 0) rotate(8deg); }
+  88% { opacity: var(--o, 0.4); }
+  100% { opacity: 0; transform: translate3d(var(--drift, 0px), -115vh, 0) rotate(-6deg); }
+}
+
+/* =====================================================
+   NEW: BETTER USE OF THE SCREEN (no horizontal overflow on phones)
+   ===================================================== */
+body { overflow-x: hidden; }
+.card { min-width: 0; max-width: 100%; }
+img, video { max-width: 100%; }
+
+/* LAPTOP / DESKTOP: card fills almost the whole screen */
+@media (min-width: 900px) {
+  body { padding: 20px; }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1500px;
+    min-height: calc(100vh - 40px);
+    min-height: calc(100dvh - 40px);
+    padding: clamp(28px, 3.5vw, 56px) clamp(40px, 6vw, 96px);
+  }
+
+  /* content stays in a comfortable column, centred in the big card */
+  .card > section {
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+  }
+
+  /* scrapbook photos: a little taller so they keep their proportions in the wider column */
+  .memory-photo,
+  .memory-video { height: 170px; }
+}
+
+/* shorter laptop screens: tighter spacing so there is less scrolling */
+@media (min-width: 900px) and (max-height: 820px) {
+  .card { padding-top: 22px; padding-bottom: 22px; }
+  .steps { margin-bottom: 12px; }
+  .lock-time { font-size: 2.3rem; margin-bottom: 8px; }
+  .pin-screen { margin: 12px auto; padding: 16px 16px; }
+  .progress-wrap { margin: 18px 0 10px; }
+  .tiny { margin-top: 14px; }
+}
+
 /* REDUCE ANIMATION IF PREFERRED */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
