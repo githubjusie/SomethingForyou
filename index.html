@@ -9,10 +9,13 @@
 <body>
   <canvas id="bgCanvas" aria-hidden="true"></canvas>
 
+  <!-- NEW: floating glowing heart particles (filled in by script.js, never blocks clicks) -->
+  <div id="heartField" class="heart-field" aria-hidden="true"></div>
+
   <main class="card" id="card">
 
-    <!-- CHANGED: page indicator now has 5 steps (added "Intentions") -->
-    <nav class="steps" id="steps" aria-label="Progress">
+    <!-- CHANGED: page indicator is hidden on the welcome page (class "steps-hidden"), shown from authentication onward -->
+    <nav class="steps steps-hidden" id="steps" aria-label="Progress">
       <span class="step active" data-step="1"><i></i><em>Unlock</em></span>
       <span class="step" data-step="2"><i></i><em>Moments</em></span>
       <span class="step" data-step="3"><i></i><em>Jacket</em></span>
@@ -20,8 +23,32 @@
       <span class="step" data-step="5"><i></i><em>Question</em></span>
     </nav>
 
+    <!-- NEW — SECTION 0: WELCOME PAGE (appears first) -->
+    <section id="landing" class="landing">
+      <p class="chapter">an invitation</p>
+
+      <div class="landing-heart-wrap" aria-hidden="true">
+        <span class="landing-heart">♥</span>
+      </div>
+
+      <h1 class="landing-title">Welcome</h1>
+
+      <p class="landing-text">
+        Hey, I made a little something for you. It's a small collection of moments, memories, and things I've been wanting to share. Nothing complicated, so just take your time and enjoy every little part of it. I hope this brings a little smile to your day. ♡
+      </p>
+
+      <div class="landing-actions">
+        <button class="action begin-btn" id="beginButton" type="button">
+          Let's Begin ♡
+        </button>
+      </div>
+
+      <p class="tiny">made with a little matcha and a lot of courage ♡</p>
+    </section>
+
     <!-- SECTION 1: AUTHENTICATION / QUIZ -->
-    <section id="quiz">
+    <!-- CHANGED: starts hidden (class "hidden") because the welcome page is now first -->
+    <section id="quiz" class="hidden">
       <p class="chapter">the little lock</p>
 
       <div class="tag-wrap">
@@ -95,7 +122,7 @@
       <p class="tiny">made with a little matcha and a lot of courage ♡</p>
     </section>
 
-    <!-- WELCOME SCREEN -->
+    <!-- WELCOME SCREEN (the "access granted" screen after the quiz) -->
     <section id="welcome" class="welcome hidden">
       <p class="chapter">the door is open...</p>
 
